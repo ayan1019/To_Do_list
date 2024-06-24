@@ -1,0 +1,66 @@
+{% include "header.html" %}
+
+<!-- Content -->
+
+
+
+								<section>
+									<header class="main">
+										<h1>Add Sub Tasks</h1>
+									</header>
+
+<div class="container">
+  <form method="post" novalidate=true>
+
+
+    {{ form.csrf_token }}
+        {% for field in form %}
+            {% if field.label.text != 'CSRF Token' %}
+	        {% if field.label.text !='Add Task'%}
+                <div class="row">
+                    <label for="{{ field.id }}" class="col-25">{{ field.label }}</label>
+                    <div class="col-75">
+                        {{ field }}
+                        {% if field.errors %}
+                            <ul >
+                                {% for error in field.errors %}
+                                    <li class="error-messages">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+
+						{% endif%}
+                    </div>
+                </div>
+	  {%else%}
+
+	  <div class="row">
+		  {%if field.label.text=='Add Task'%}
+		  <div class="col-50">
+			  {{field}}
+          </div>
+
+
+			  {%endif%}
+
+	  </div>
+                        {% endif %}
+            {% endif %}
+        {% endfor %}
+<!--       <div class="row">-->
+<!--            <div class="col-50">-->
+<!--                {% for field in form if field.type == 'SubmitField' and field.label.text=='Add Task'%}-->
+<!--                    {{ field }}-->
+<!--                {% endfor %}-->
+<!--            </div>-->
+<!--	   </div>-->
+  </form>
+</div>
+
+									<hr class="major" />
+
+
+								</section>
+
+						</div>
+					</div>
+{% include "footer.html" %}

@@ -1,0 +1,43 @@
+{% include "header.html" %}
+
+							<!-- Banner -->
+								<section id="banner">
+
+									<div class="content">
+
+
+										<header>
+	{% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+                  <div class="alert">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <strong>{{message}}</strong>
+				  </div>
+
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+											<h1 class="hover-border" style="color:black">Hi, I’m ToDo Pro<br />
+											</h1>
+											<p>Power Up Your Productivity!</p>
+										</header>
+										<p>Welcome to Todo Pro, your ultimate productivity companion, designed to simplify your tasks and supercharge your efficiency. Say goodbye to chaos and hello to seamless organization!</p>
+<!--										<ul class="actions">-->
+<!--											<li><a href="#" class="button big">Learn More</a></li>-->
+<!--										</ul>-->
+									</div>
+									<span class="image object">
+										<img src="static/images/todo.jpg" alt="to do" />
+									</span>
+								</section>
+
+							<!-- Section -->
+
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+{% include "footer.html" %}

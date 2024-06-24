@@ -1,0 +1,84 @@
+{% include "header.html" %}
+
+<!-- Content -->
+								<section>
+									<header class="main">
+	{% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+                  <div class="alert">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <strong>{{message}}</strong>
+			      </div>
+
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+										<h1>{{task.todo_task}}</h1>
+									</header>
+									<div class="container">
+									{%if task.status=="Active"%}
+
+
+	<div class="row"><div class="col-95"><a class="button button-small" href="{{url_for('add_sub_task',task_id=task.id)}}">Add New SubTask</a></div></div>
+{%endif%}
+
+
+<div class="container">
+	<table><tbody><tr><td><span style="font-weight:900;">Task Name</span></td><td><span style="font-weight:900;">Category</span></td><td><span style="font-weight:900;">Task Added On</span></td><td><span style="font-weight:900;">Due Date</span></td><td><span style="font-weight:900;">Current Status</span></td><td><span style="font-weight:900;">Update Status</span></td><td><span style="font-weight:900;">Delete Task</span></td></tr>
+
+
+	<tr>
+		<td>{{task.todo_task}}</td>
+		<td>{{task.category}}</td>
+		<td>{{task.date_added}}</td>
+		<td>{{task.due_date}}</td>
+		<td>{{task.status}}</td>
+		{%if task.status=="Active"%}
+				<td><a href="{{url_for('update_maintask',task_id=task.id)}}"><img src="static/images/completed_icon.jpg" alt="checklist" width="30" height="30" /></a></td>
+		{%else%}
+		<td>&nbsp</td>
+		{%endif%}
+				<td><a href="{{url_for('delete_task',task_id=task.id,user_id=task.user_id)}}"><img src="static/images/delete_icon.png" alt="checklist" width="30" height="30" /></a></td>
+
+
+	</tr>
+		</tbody></table>
+	<div class="container_small">
+		<table><tbody><tr><td style="text-align: center ;" colspan="4"><span style="font-weight:900; ">Sub Tasks </span></td></tr>
+{%for i in subtasks%}
+	<tr>
+		<td>{{i.subtask_name}}</td>
+
+		<td>{{i.subtask_status}}</td>
+		{%if i.subtask_status=="Active"%}
+		<td><a href="{{url_for('update_subtask',subtask_id=i.id,task_id=task.id)}}"><img src="static/images/completed_icon.jpg" alt="checklist" width="30" height="30" /></a></td>
+         {%else%}
+		<td>&nbsp</td>
+		{%endif%}
+		<td><a href="{{url_for('delete_subtask',subtask_id=i.id,task_id=task.id)}}"><img src="static/images/delete_icon.png" alt="checklist" width="30" height="30" /></a></td>
+
+
+	</tr>
+	{%endfor%}
+		</tbody></table></div>
+
+
+<!--<a class="button button-small" href="{{url_for('add_sub_task',task_id=task.id)}}">Add SubTask</a><span style="margin-right:20%;"></span>-->
+<!--  <a class=" button button-small" href="#">Update status</a><span style="margin-right:20%;"></span>-->
+<!--<a class="button button-small" href="{{url_for('delete_task',task_id=task.id,user_id=task.user_id)}}">Delete Task</a>-->
+	<a class="button button-small" href="{{url_for('get_all_activities')}}">My Tasks</a>
+</div>
+									</div>
+
+									<hr class="major" />
+
+
+								</section>
+
+						</div>
+					</div>
+
+
+{% include "footer.html" %}

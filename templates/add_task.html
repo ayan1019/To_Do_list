@@ -1,0 +1,83 @@
+{% include "header.html" %}
+
+							<!-- Content -->
+
+
+
+								<section>
+									<header class="main">
+	{% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+                  <div class="alert">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  				   <strong>{{message}}</strong>
+				  </div>
+
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+										<h1>Add Tasks</h1>
+									</header>
+
+<div class="container">
+  <form method="post" novalidate=true>
+
+
+    {{ form.csrf_token }}
+        {% for field in form %}
+            {% if field.label.text != 'CSRF Token' %}
+	        {% if field.label.text!='Add New Category' and field.label.text !='Add task'%}
+                <div class="row">
+                    <label for="{{ field.id }}" class="col-25">{{ field.label }}</label>
+                    <div class="col-75">
+                        {{ field }}
+                        {% if field.errors %}
+                            <ul >
+                                {% for error in field.errors %}
+                                    <li class="error-messages">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+
+						{% endif%}
+                    </div>
+                </div>
+	  {%else%}
+
+	  <div class="row">
+		  {%if field.label.text=='Add New Category'%}
+		  <div class="col-75_new">
+			  {{field(class_="button small_grey")}}
+          </div>
+			  {%else%}
+		  <div class="col-50">
+
+			  {{field}}
+		  </div>
+			  {%endif%}
+
+	  </div>
+                        {% endif %}
+            {% endif %}
+        {% endfor %}
+<!--       <div class="row">-->
+<!--            <div class="col-50">-->
+<!--                {% for field in form if field.type == 'SubmitField' and field.label.text=='Add Task'%}-->
+<!--                    {{ field }}-->
+<!--                {% endfor %}-->
+<!--            </div>-->
+<!--	   </div>-->
+  </form>
+</div>
+
+									<hr class="major" />
+
+
+								</section>
+
+						</div>
+					</div>
+
+	<!-- Sidebar -->
+{% include "footer.html" %}

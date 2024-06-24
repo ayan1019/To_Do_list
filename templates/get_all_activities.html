@@ -1,0 +1,97 @@
+{% include "header.html" %}
+
+
+		<!-- Content -->
+								<section>
+
+									<header class="main">
+										{% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+                  <div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>{{message}}</strong>
+</div>
+
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+										<h1>My ToDo List</h1>
+									</header>
+
+
+<div class="container">
+	<div class="row"><div class="col-95"><a class="button button-small" href="{{url_for('add_task')}}">Add New Task</a></div></div>
+
+<h4>All Activities</h4>
+		<table><tbody><tr><td><span style="font-weight:900;">Task Name</span></td><td><span style="font-weight:900;">Category</span></td><td><span style="font-weight:900;">Task Added On</span></td><td><span style="font-weight:900;">Due Date</span></td><td><span style="font-weight:900;">Current Status</span></td></tr>
+
+	{%for i in all_task_list%}
+
+
+		{%if i.due_date == date and i.status=="Active"%}
+		<tr>
+		<td><a href="{{url_for('show_individual_task', task_id=i.id,user_id=i.user_id) }}">{{i.todo_task}}</a></td>
+		<td>{{i.category}}</td>
+		<td>{{i.date_added}}</td>
+		<td>{{i.due_date}}</td>
+		<td><span class="blink" style="padding:8px;color:white;background-color:red;">{{i.status}}</span></td>
+			</tr>
+		{%elif i.due_date < date and i.status=="Active" %}
+			<tr>
+		<td><a href="{{url_for('show_individual_task', task_id=i.id,user_id=i.user_id) }}">{{i.todo_task}}</a></td>
+		<td>{{i.category}}</td>
+		<td>{{i.date_added}}</td>
+		<td>{{i.due_date}}</td>
+		<td><span class= "blink" style="padding:8px;color:white;background-color:purple;">{{i.status}}</span></td>
+			</tr>
+		{%else%}
+		<tr>
+		<td><a href="{{url_for('show_individual_task', task_id=i.id,user_id=i.user_id) }}">{{i.todo_task}}</a></td>
+		<td>{{i.category}}</td>
+		<td>{{i.date_added}}</td>
+		<td>{{i.due_date}}</td>
+		<td>{{i.status}}</td>
+			</tr>
+         {%endif%}
+
+	{%endfor%}
+		</tbody></table>
+<h4>Active Tasks</h4>
+	<table><tbody><tr><td><span style="font-weight:900;">Task Name</span></td><td><span style="font-weight:900;">Category</span></td><td><span style="font-weight:900;">Task Added On</span></td><td><span style="font-weight:900;">Due Date</span></td><td><span style="font-weight:900;">Current Status</span></td></tr>
+
+	{%for i in active_tasks%}
+	<tr>
+		<td>{{i.todo_task}}</td>
+		<td>{{i.category}}</td>
+		<td>{{i.date_added}}</td>
+		<td>{{i.due_date}}</td>
+		<td>{{i.status}}</td>
+	</tr>
+	{%endfor%}
+		</tbody></table>
+<h4>Completed Tasks</h4>
+	<table><tbody><tr><td><span style="font-weight:900;">Task Name</span></td><td><span style="font-weight:900;">Category</span></td><td><span style="font-weight:900;">Task Added On</span></td><td><span style="font-weight:900;">Due Date</span></td><td><span style="font-weight:900;">Current Status</span></td></tr>
+
+	{%for i in completed_tasks%}
+	<tr>
+		<td>{{i.todo_task}}</td>
+		<td>{{i.category}}</td>
+		<td>{{i.date_added}}</td>
+		<td>{{i.due_date}}</td>
+		<td>{{i.status}}</td>
+	</tr>
+	{%endfor%}
+		</tbody></table>
+
+
+</div>
+
+									<hr class="major" />
+
+
+								</section>
+
+						</div>
+					</div>
+{% include "footer.html" %}

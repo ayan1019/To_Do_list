@@ -1,0 +1,63 @@
+{% include "header.html" %}
+
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+	{% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+                  <div class="alert">
+				  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+				  <strong>{{message}}</strong>
+				  </div>
+
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+										<h1>Sign In</h1>
+									</header>
+
+<div class="container">
+  <form method="post">
+
+
+    {{ form.csrf_token }}
+        {% for field in form if field.type != 'SubmitField' %}
+            {% if field.label.text != 'CSRF Token' %}
+                <div class="row">
+                    <label for="{{ field.id }}" class="col-25">{{ field.label }}</label>
+                    <div class="col-75">
+                        {{ field }}
+                        {% if field.errors %}
+                            <ul >
+                                {% for error in field.errors %}
+                                    <li class="error-messages">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+       <div class="row">
+            <div class="col-50">
+                {% for field in form if field.type == 'SubmitField' %}
+                    {{ field }}
+                {% endfor %}
+            </div>
+	   </div>
+  </form>
+</div>
+
+									<hr class="major" />
+
+
+								</section>
+
+						</div>
+					</div>
+
+	<!-- Sidebar -->
+	{% include "footer.html" %}
