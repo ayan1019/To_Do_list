@@ -29,7 +29,7 @@ pip3 install -r requirements.txt
 
  1. Run the app: python main.py
  2. Open a web browser and go to http://127.0.0.1:5000
- 3. Interact with the app to create and manage your asks.
+ 3. Interact with the app to create and manage your tasks.
 
 
 ## Features
